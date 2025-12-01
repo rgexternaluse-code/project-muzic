@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Muzic</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="sort">Sort</string>
+    <string name="alphabetical">A–Z</string>
+    <string name="by_folder">By Folder</string>
+    <string name="by_artist">By Artist</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="unknown_artist">Unknown Artist</string>
+    <string name="unknown_album">Unknown Album</string>
+</resources>

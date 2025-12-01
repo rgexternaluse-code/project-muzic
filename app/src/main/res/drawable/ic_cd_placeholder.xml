@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Outer circle (CD disc) -->
+    <path
+        android:pathData="M100,100m-95,0a95,95 0 1,1 190,0a95,95 0 1,1 -190,0"
+        android:fillColor="#1a1a1a"
+        android:strokeColor="#FFD700"
+        android:strokeWidth="2" />
+
+    <!-- Middle circle -->
+    <path
+        android:pathData="M100,100m-70,0a70,70 0 1,1 140,0a70,70 0 1,1 -140,0"
+        android:fillColor="#2a2a2a"
+        android:strokeColor="#888888"
+        android:strokeWidth="1" />
+
+    <!-- Center hole -->
+    <path
+        android:pathData="M100,100m-15,0a15,15 0 1,1 30,0a15,15 0 1,1 -30,0"
+        android:fillColor="#0a0a0a"
+        android:strokeColor="#666666"
+        android:strokeWidth="1" />
+
+    <!-- Shine effect -->
+    <path
+        android:pathData="M100,10 Q140,30 140,100 Q120,80 100,75 Q80,80 60,100 Q60,50 100,10"
+        android:fillColor="#CCCCCC"
+        android:fillAlpha="0.3" />
+
+    <!-- Text -->
+    <path
+        android:pathData="M100,100"
+        android:fillColor="#FFD700" />
+
+</vector>
