@@ -51,14 +51,14 @@ MAX_FD="maximum"
 
 warn () {
     echo "$*"
-}
+} >&2
 
 die () {
     echo
     echo "$*"
     echo
     exit 1
-}
+} >&2
 
 # OS specific support (must be 'true' or 'false').
 cygwin=false
@@ -81,6 +81,7 @@ case "`uname`" in
 esac
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+
 
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
@@ -133,61 +134,44 @@ if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
     JAVACMD=`cygpath --unix "$JAVACMD"`
 
     # We build the pattern for arguments to be converted via cygpath
-    ROOTDIRSRAW=`find -L / -maxdepth 3 -type d -name java >/dev/null 2>&1 && find -L / -maxdepth 3 -type d -name java | head -1`
+    ROOTDIRSRAW=`find -L / -maxdepth 3 -type d -name java >/dev/null 2>&1 && echo "ROOTDIR" || echo ""`
     # Add a user-defined pattern to the cygpath arguments
-    if [ "$GRADLE_CYGWIN_HOME" != "" ] ; then
-        CLASSPATH=`cygpath --path --mixed "$GRADLE_CYGWIN_HOME/lib/gradle-wrapper.jar:$CLASSPATH"`
+    if [ "$GRADLE_CYGPATTERN" != "" ] ; then
+        OURCYGPATTERN="$OURCYGPATTERN|($GRADLE_CYGPATTERN)"
     fi
-    # wrapper values
-    for jarfile in "$APP_HOME"/gradle/wrapper/*.jar
-    do
-        if [ -f "$jarfile" ] ; then
-            case $jarfile in
-                *gradle-wrapper.jar )
-                    CLASSPATH=`cygpath --path --mixed "$jarfile:$CLASSPATH"`
-                    break
-                    ;;
-            esac
+    # Now convert the arguments - kludge to limit ourselves to /bin/sh
+    i=0
+    for arg in "$@" ; do
+        CHECK=`echo "$arg"|egrep -c "$OURCYGPATTERN" -`
+        CHECK2=`echo "$arg"|egrep -c "^-"`
+        if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then
+            arg=`cygpath --path --unix "$arg"`
         fi
+        GRADLE_OPTS="$GRADLE_OPTS \"$arg\""
+        i=`expr $i + 1`
     done
-    # Determine the Java command to use to start the JVM (version check)
-    COMMAND=`cygpath --unix "$JAVACMD"`
+    case $i in
+        0) set -- ;;
+        1) set -- "$arg0" ;;
+        2) set -- "$arg0" "$arg1" ;;
+        3) set -- "$arg0" "$arg1" "$arg2" ;;
+        4) set -- "$arg0" "$arg1" "$arg2" "$arg3" ;;
+        5) set -- "$arg0" "$arg1" "$arg2" "$arg3" "$arg4" ;;
+        6) set -- "$arg0" "$arg1" "$arg2" "$arg3" "$arg4" "$arg5" ;;
+        7) set -- "$arg0" "$arg1" "$arg2" "$arg3" "$arg4" "$arg5" "$arg6" ;;
+        8) set -- "$arg0" "$arg1" "$arg2" "$arg3" "$arg4" "$arg5" "$arg6" "$arg7" ;;
+        9) set -- "$arg0" "$arg1" "$arg2" "$arg3" "$arg4" "$arg5" "$arg6" "$arg7" "$arg8" ;;
+    esac
 fi
 
-# Grab all arguments and save them
-APP_ARGS="$*"
+# Escape application args
+save () {
+    for i do printf %s\\n "$i" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/' \\\\/" ; done
+    echo " "
+}
+APP_ARGS=`save "$@"`
 
-# Regular expression matching a number
-NUM_RE="^-?[0-9]\+$"
+# Collect all arguments for the java command, following the shell quoting and substitution rules
+eval set -- $DEFAULT_JVM_OPTS $GRADLE_OPTS "\"-classpath\"" "\"%s\"" org.gradle.wrapper.GradleWrapperMain "$APP_ARGS"
 
-# Separate any jar files in the argument list from the flags so that we can do an intelligent default.
-for arg in "$@" ; do
-    if [[ "$arg" =~ $NUM_RE ]] ; then
-        # shellcheck disable=SC2206
-        NUMBER_ARGS+=($arg)
-    else
-        case $arg in                                   #(
-          /*)   # absolute file path is passed
-                # shellcheck disable=SC2206
-                GRADLE_OPTS+=("$arg")
-                ;;          #(
-          ?:/*) # partial file path is passed
-                # shellcheck disable=SC2206
-                GRADLE_OPTS+=("$arg")
-                ;;          #(
-          *)    # anything else
-                # In principle, we could write this as:
-                # [[ "$arg" =~ ^--.* ]] && GA_JVM_OPTS+=( "$arg" ) || GA_INIT_DIR+=( "$arg" )
-                # but now we actually have three special cases, so let me write it a bit more readably
-                case "$arg" in                          #(
-                  --debug)   set -x   ;;                #(
-                  --info )   set -v   ;;                #(
-                  --stop )   exit 0   ;;                #(
-                  *)         GRADLE_OPTS+=("$arg") ;;
-                esac
-                ;;
-        esac
-    fi
-done
-
-exec "$JAVACMD" "${GRADLE_OPTS[@]}" -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
+exec "$JAVACMD" "$@"
