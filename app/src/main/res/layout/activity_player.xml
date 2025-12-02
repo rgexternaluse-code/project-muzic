@@ -31,7 +31,7 @@
             android:textSize="@dimen/text_size_large"
             android:textColor="@color/on_surface"
             android:textAlignment="center"
-            android:marginTop="@dimen/margin_medium" />
+            android:layout_marginTop="@dimen/margin_medium" />
 
         <TextView
             android:id="@+id/playerSongArtist"
@@ -41,7 +41,7 @@
             android:textSize="@dimen/text_size_medium"
             android:textColor="@color/on_surface"
             android:textAlignment="center"
-            android:marginTop="@dimen/margin_small" />
+            android:layout_marginTop="@dimen/margin_small" />
 
     </LinearLayout>
 
@@ -64,7 +64,7 @@
                 android:layout_height="40dp"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:marginBottom="@dimen/margin_medium" />
+                android:layout_marginBottom="@dimen/margin_medium" />
 
             <!-- Seekbar -->
             <SeekBar
@@ -77,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:justifyContent="space_between">
+                android:gravity="space_between">
 
                 <TextView
                     android:id="@+id/currentTime"

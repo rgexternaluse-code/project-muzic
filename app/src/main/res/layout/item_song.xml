@@ -44,7 +44,7 @@
                 android:text="@string/unknown_artist"
                 android:textSize="@dimen/text_size_small"
                 android:textColor="@color/on_surface"
-                android:marginTop="@dimen/margin_small" />
+                android:layout_marginTop="@dimen/margin_small" />
 
         </LinearLayout>
 
